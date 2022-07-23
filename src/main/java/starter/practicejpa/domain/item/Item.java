@@ -2,8 +2,11 @@ package starter.practicejpa.domain.item;
 
 import lombok.Getter;
 import lombok.Setter;
+import starter.practicejpa.domain.Category;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 //싱글 테이블 전략을 잡아줘야 함.
@@ -23,5 +26,7 @@ public abstract class Item {
     private int price;
     private int stockQuantity;
 
+    @ManyToMany(mappedBy = "items")
+    private List<Category> categories =new ArrayList<>();
 
 }
