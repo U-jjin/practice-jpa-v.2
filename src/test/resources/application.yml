@@ -1,0 +1,24 @@
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:test #h2데이터베이스 공홈 Cheat Sheet -> In-Memory
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+#    자동 탭 만들어주는 것
+      ddl-auto: create  # create-drop 으로 하면 테스트가 끝날 때 drop까지 해서 자원 초기화 해줌
+    properties:
+      hibernate:
+        format_sql: true
+#       show_sql: true
+
+# 스프링 부트에서 저 모든 것이 없어도,
+# 별도의 설정이 없으면 메모리모드로 돌리기 때문에 따로 작성하지 않아도 괜찮음
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace
+
