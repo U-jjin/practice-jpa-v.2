@@ -1,6 +1,8 @@
 package starter.practicejpa.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import starter.practicejpa.domain.item.Item;
 
@@ -8,6 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
 
     @Id
@@ -27,4 +30,25 @@ public class OrderItem {
     private int count;  //주문 수량
 
 
+    //== 연관관계 메소드 ==//
+
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count){
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setCount(count);
+        orderItem.setOrderPrice(orderPrice);
+
+        item.removeStock(count);
+        return orderItem;
+    }
+
+
+    //==비즈니스 로직 ==//
+    public void cancel() {
+        getItem().addStock(count);
+    }
+    //== 조회 로직 ==//
+    public int getTotalPrice() {
+        return getOrderPrice() *getTotalPrice();
+    }
 }
