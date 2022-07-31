@@ -30,7 +30,7 @@ public class OrderService {
 
         /*
             delivery orderitem 은 리포지터리 save 하지 않았는데,
-            그 이유는 orderRepository에서 어노테이션 cascade 어노테이션 덕분에 연속적으로 모두 persist가 일어남남
+            그 이유는 orderRepository에서 어노테이션 cascade 어노테이션 덕분에 연속적으로 모두 persist가 일어남
             private owner인 경우에만 cascade 를 쓰는 것.
             만약, delivery orderitem이 다른곳에도 많이 쓰이면 사용XX
         */
