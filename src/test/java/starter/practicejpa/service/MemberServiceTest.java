@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import starter.practicejpa.domain.Member;
 import starter.practicejpa.repository.MemberRepository;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 
 import static org.junit.Assert.*;
@@ -18,9 +17,10 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)  //JUNIT이랑 스프링러너랑 테스트할래 의미
 @SpringBootTest
 @Transactional
-public class MemberServcieTest {
+public class MemberServiceTest {
 
-    @Autowired MemberServcie memberServcie;
+    @Autowired
+    MemberService memberService;
     @Autowired MemberRepository memberRepository;
 
     @Autowired
@@ -32,7 +32,7 @@ public class MemberServcieTest {
         Member member = new Member();
         member.setName("ahn");
 
-        Long memberId = memberServcie.join(member);
+        Long memberId = memberService.join(member);
 
         em.flush(); //database에 영속성 컨텍스트 바뀐 사항을 디비에 적오ㅛㅇㅇ
         assertEquals(member, memberRepository.findOne(memberId));
@@ -45,8 +45,8 @@ public class MemberServcieTest {
         Member member2 = new Member();
         member2.setName("ahn1");
 
-        memberServcie.join(member1);
-        memberServcie.join(member2);
+        memberService.join(member1);
+        memberService.join(member2);
         /*
         try{
             memberServcie.join(member2); //예외가 발생해야 한다!

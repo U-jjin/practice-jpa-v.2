@@ -1,7 +1,6 @@
 package starter.practicejpa.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import starter.practicejpa.domain.Member;
@@ -19,7 +18,7 @@ JPA의 모든 로직들은 트랜잭션 안에서 움직여야 한다.
 // 읽기 전용으로 해놓고 쓰기가 필요할 때 어노테이션 붙이기
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MemberServcie {
+public class MemberService {
     /*
     1.
     @Autowired  //스프링 빈에 등록되어 있는 것을 인젝션
