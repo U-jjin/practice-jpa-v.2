@@ -71,18 +71,25 @@ public class ItemController {
 
     @PostMapping("items/{itemId}/edit")
     //오브젝트 이름을 매칭해주는 어노테이션 ModelAttribute
-    public String updateItem(@ModelAttribute("form") BookForm form){
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form){
 
         //유저가 아이템 변경 권한이 있는지 체크
-        Book book = new Book();
-        book.setId(form.getId());
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
+        //데이터베이스에 들어갔다 나온 객체는 준영속상태의 객체
+        //더이상 영속성컨텍스트가 관리하지 않는 객체.
+        //문제점 : JPA가 관리하지않기 때문에 값을 변경하여도 db에 업데이트가 잃어나지 않는다.
 
-        itemService.saveItem(book);
+//        Book book = new Book();
+//        book.setId(form.getId());
+//        book.setName(form.getName());
+//        book.setPrice(form.getPrice());
+//        book.setStockQuantity(form.getStockQuantity());
+//        book.setAuthor(form.getAuthor());
+//        book.setIsbn(form.getIsbn());
+//        itemService.saveItem(book);
+        // 웹 단계에서 엔티티를 생성하는 것보다, 이런식으로 넘겨주는 것이 좋다.
+        // 넘겨줄 파라미터가 너무 많다면 ,DTO를 만들어주자
+        itemService.updateItem(itemId,form.getName(), form.getPrice(), form.getStockQuantity());
+
         return "redirect:/items";
     }
 }
