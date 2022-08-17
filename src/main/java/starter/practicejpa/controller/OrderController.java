@@ -3,10 +3,7 @@ package starter.practicejpa.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import starter.practicejpa.domain.Member;
 import starter.practicejpa.domain.Order;
 import starter.practicejpa.domain.item.Item;
@@ -51,5 +48,12 @@ public class OrderController {
         return "order/orderList";
     }
 
+    @PostMapping("/orders/{orderId}/cancel")
+    public String cancelOrder(@PathVariable("orderId") Long orderId){
+        orderService.cancelOrder(orderId);
+
+        return "redirect:/orders";
+
+    }
 
 }
