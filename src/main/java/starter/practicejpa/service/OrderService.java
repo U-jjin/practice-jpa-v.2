@@ -1,6 +1,6 @@
 package starter.practicejpa.service;
 
-
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +12,7 @@ import starter.practicejpa.domain.item.Item;
 import starter.practicejpa.repository.ItemRepository;
 import starter.practicejpa.repository.MemberRepository;
 import starter.practicejpa.repository.OrderRepository;
+import starter.practicejpa.repository.OrderSearch;
 
 @Service
 @Transactional(readOnly = true)
@@ -61,6 +62,10 @@ public class OrderService {
     }
 
     //검색
+    public List<Order> findOrders(OrderSearch orderSearch){
+        return orderRepository.findAll(orderSearch);
+
+    }
 
 
 }
