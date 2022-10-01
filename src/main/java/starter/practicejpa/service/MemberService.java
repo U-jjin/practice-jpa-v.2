@@ -70,6 +70,18 @@ public class MemberService {
         }
     }
 
+    //회원 수정
+    //변경 감지를 사용해서 데이터를 수정한다.
+    @Transactional
+    public void update(Long id, String name){
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+        //변경 감지를 통해 변경된 현제 이 member 객체를 반환하여도 되지만,
+        // 커멘드와 쿼리를 철저히 분리해야 하기 때문에 조회와 수정 쿼리가 동시에 이뤄지기 때문에,
+        // member 객체를 반환해주지 않는다. 대신에, id정도는 다시 반환하여 다시 해당 멤버 객체를 조회 할 수 있도록 한다.
+
+    }
+
     //회원 전체 조회
 
     public List<Member> findMember(){
