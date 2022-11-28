@@ -8,8 +8,7 @@ import starter.practicejpa.domain.Member;
 import starter.practicejpa.service.MemberService;
 
 import javax.validation.Valid;
-
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController

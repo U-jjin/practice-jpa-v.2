@@ -2,9 +2,7 @@ package starter.practicejpa.repository;
 
 
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import starter.practicejpa.domain.Order;
 
@@ -15,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class OrderRepository {
 
@@ -101,5 +98,35 @@ public class OrderRepository {
         cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()])));
         TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000); //최대1000건
         return query.getResultList();
+    }
+
+    public List<Order> findAllWithMemberDelivery() {
+
+        return em.createQuery(
+                "select o from Order o " +
+                        "join fetch o.member m " +
+                        "join fetch o.delivery d",Order.class)
+                        .getResultList();
+    }
+
+    public List<Order> findAllWithItem(){
+        return em.createQuery(
+                "select distinct o from Order o " +
+                        "join fetch o.member m " +
+                        "join fetch  o.delivery d " +
+                        "join fetch  o.orderItems oi " +
+                        "join fetch  oi.item i", Order.class)
+                .getResultList();
+    }
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+
+        return em.createQuery(
+                        "select o from Order o " +
+                                "join fetch o.member m " +
+                                "join fetch o.delivery d",Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
     }
 }
